@@ -14,3 +14,4 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can use the email: admin@gmail.com and password: 123456 to login and check how the project works.
