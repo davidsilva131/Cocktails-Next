@@ -7,6 +7,7 @@ import ModalAdd from '@/components/modal'
 import SearchAdd from '@/components/SearchAdd'
 import Loading from '@/components/Loading'
 import TableInventory from '@/components/TableInventory'
+import Pagination from '@/components/Pagination'
 
 /* eslint-disable space-before-function-paren */
 export default function Inventory({ inventory }) {
@@ -50,6 +51,7 @@ export default function Inventory({ inventory }) {
                   <div className='mx-auto max-w-screen-xl px-4 lg:px-12'>
                     <SearchAdd search={search} setOpenModal={setOpenModal} openModal={openModal} />
                     <TableInventory dataFiltered={dataFiltered} currentPage={currentPage} setOpenModal={setOpenModal} />
+                    <Pagination dataFilteredLength={dataFiltered.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
                   </div>
                 </section>
                 <ModalAdd setDataFiltered={setDataFiltered} open={openModal} setOpen={setOpenModal} page='inventario' />
