@@ -19,8 +19,7 @@ export default function Inventory({ inventory }) {
     start: 0,
     end: 5
   })
-  const [searching, setSearching] = useState(false)
-  const [copyData, setCopyData] = useState()
+  const [copyData] = useState([...dataFiltered])
 
   const router = useRouter()
 
@@ -32,15 +31,11 @@ export default function Inventory({ inventory }) {
   }, [])
 
   const search = async ({ target }) => {
-    if (!searching) {
-      setCopyData(dataFiltered)
-      setSearching(true)
-    }
     if (target.value === '') {
       setDataFiltered(copyData)
       return
     }
-    const filter = dataFiltered.filter(cocktail => cocktail.name.toLowerCase().includes(target.value.toLowerCase()))
+    const filter = copyData.filter(cocktail => cocktail.name.toLowerCase().includes(target.value.toLowerCase()))
     setDataFiltered(filter)
   }
 
