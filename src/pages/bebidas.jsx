@@ -4,7 +4,7 @@ import Pagination from '@/components/Pagination'
 import SearchAdd from '@/components/SearchAdd'
 import Table from '@/components/Table'
 import ModalAdd from '@/components/modal'
-import { getAllCocktails } from '@/pages/api/cocktailsActions'
+import { getAllCocktails } from '@/services/cocktailsActions'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 

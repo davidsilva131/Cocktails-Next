@@ -2,7 +2,7 @@ import PageLayout from '@/components/PageLayout'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import { getInventory } from '@/pages/api/inventoryActions'
+import { getInventory } from '@/services/inventoryActions'
 import ModalAdd from '@/components/modal'
 import SearchAdd from '@/components/SearchAdd'
 import Loading from '@/components/Loading'

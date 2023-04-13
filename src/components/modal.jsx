@@ -1,10 +1,10 @@
-import { fileUpload } from '@/pages/api/fileUpload'
+import { fileUpload } from '@/services/fileUpload'
 import FormAdd from './FormAdd'
 import FormDelete from './FormDelete'
 import FormEdit from './FormEdit'
-import { createCocktail, deleteCocktail, getAllCocktails, updateCocktail } from '@/pages/api/cocktailsActions'
+import { createCocktail, deleteCocktail, getAllCocktails, updateCocktail } from '@/services/cocktailsActions'
 import Swal from 'sweetalert2'
-import { createProduct, deleteProduct, getInventory, updateProduct } from '@/pages/api/inventoryActions'
+import { createProduct, deleteProduct, getInventory, updateProduct } from '@/services/inventoryActions'
 
 const ModalAdd = ({ setDataFiltered, open, setOpen, page }) => {
   const handleCancel = () => {

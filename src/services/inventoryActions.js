@@ -1,4 +1,4 @@
-import { database } from '@/pages/api/firebaseConfig'
+import { database } from '../services/firebaseConfig'
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
 
 const collectionName = 'inventory'

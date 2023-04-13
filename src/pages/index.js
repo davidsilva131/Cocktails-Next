@@ -1,6 +1,6 @@
 /* eslint-disable space-before-function-paren */
 import PageLayout from '@/components/PageLayout'
-import { login } from './api/userActions'
+import { login } from '../services/userActions'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Loading from '@/components/Loading'
