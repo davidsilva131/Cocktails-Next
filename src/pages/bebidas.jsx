@@ -27,17 +27,14 @@ export default function Bebidas({ cocktails }) {
       router.push('/')
     } else setLoaded(true)
   }, [])
-  const search = ({ target }) => {
-    if (target.value !== '') {
-      const firstPage = {
-        page: 1,
-        start: 0,
-        end: 5
-      }
-      setCurrentPage(firstPage)
-      const tempData = dataFiltered.filter(cocktail => cocktail.name.toLowerCase().includes(target.value.toLowerCase()))
-      setDataFiltered(tempData)
-    } else setDataFiltered(cocktails)
+  const search = async ({ target }) => {
+    if (target.value === '') {
+      const data = await getAllCocktails()
+      setDataFiltered(data)
+      return
+    }
+    const filter = dataFiltered.filter(cocktail => cocktail.name.toLowerCase().includes(target.value.toLowerCase()))
+    setDataFiltered(filter)
   }
   return (
     <>
@@ -54,7 +51,7 @@ export default function Bebidas({ cocktails }) {
                     <Pagination dataFilteredLength={dataFiltered.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
                   </div>
                 </section>
-                <ModalAdd setDataFiltered={setDataFiltered} open={openModal} setOpen={setOpenModal} />
+                <ModalAdd setDataFiltered={setDataFiltered} open={openModal} setOpen={setOpenModal} page='bebidas' />
               </main>
             </>)
           : (<Loading />)

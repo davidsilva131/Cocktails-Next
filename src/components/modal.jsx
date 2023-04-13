@@ -4,20 +4,15 @@ import FormDelete from './FormDelete'
 import FormEdit from './FormEdit'
 import { createCocktail, deleteCocktail, getAllCocktails, updateCocktail } from '@/pages/api/cocktailsActions'
 import Swal from 'sweetalert2'
+import { createProduct, deleteProduct, getInventory, updateProduct } from '@/pages/api/inventoryActions'
 
-const ModalAdd = ({ setDataFiltered, open, setOpen }) => {
+const ModalAdd = ({ setDataFiltered, open, setOpen, page }) => {
   const handleCancel = () => {
     const form = document.getElementById('form')
     form.reset()
     setOpen({ ...open, state: false })
   }
-  const handleAdd = async () => {
-    const form = document.getElementById('form')
-    const formData = new FormData(form)
-    const cocktailName = formData.get('cocktailName')
-    const cocktailPrice = parseInt(formData.get('cocktailPrice'))
-    const urlPhoto = await fileUpload(formData.get('cocktailPhoto'))
-
+  const createNewCocktail = async (cocktailName, cocktailPrice, urlPhoto) => {
     if (cocktailName !== '' && cocktailPrice !== '' && urlPhoto) {
       const newCocktail = {
         name: cocktailName,
@@ -51,37 +46,53 @@ const ModalAdd = ({ setDataFiltered, open, setOpen }) => {
       })
     }
   }
-  const handleEdit = async (product) => {
+
+  const createNewProduct = async (productName, productPrice, productQuantity) => {
+    if (productName !== '' && productPrice !== '' && productQuantity !== '') {
+      const newProduct = {
+        name: productName,
+        price: parseInt(productPrice),
+        quantity: parseInt(productQuantity)
+      }
+      try {
+        await createProduct(newProduct)
+        handleCancel()
+        const tempData = await getInventory()
+        setDataFiltered(tempData)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Producto creado exitosamente!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se ha podido crear el producto'
+        })
+      }
+    }
+  }
+
+  const handleAdd = async () => {
     const form = document.getElementById('form')
     const formData = new FormData(form)
-    let updatedCocktail = {
-      name: product.name,
-      price: product.price,
-      image: product.image
+    const productName = formData.get('productName')
+    const productPrice = parseInt(formData.get('productPrice'))
+    if (page === 'bebidas') {
+      const urlPhoto = await fileUpload(formData.get('productPhoto'))
+      createNewCocktail(productName, productPrice, urlPhoto)
+    } else {
+      const productQuantity = formData.get('productQuantity')
+      createNewProduct(productName, productPrice, productQuantity)
     }
-    const cocktailName = formData.get('cocktailName')
-    if (cocktailName !== product.name) {
-      updatedCocktail = {
-        ...updatedCocktail,
-        name: cocktailName
-      }
-    }
-    const cocktailPrice = parseInt(formData.get('cocktailPrice'))
-    if (cocktailPrice !== product.price) {
-      updatedCocktail = {
-        ...updatedCocktail,
-        price: cocktailPrice
-      }
-    }
-    const photo = formData.get('cocktailPhoto')
-    if (photo.name !== '') {
-      updatedCocktail = {
-        ...updatedCocktail,
-        image: await fileUpload(formData.get('cocktailPhoto'))
-      }
-    }
+  }
+
+  const updateSingelCocktail = async (updatedCocktail, id) => {
     try {
-      await updateCocktail(updatedCocktail, product.id)
+      await updateCocktail(updatedCocktail, id)
       const tempData = await getAllCocktails()
       setDataFiltered(tempData)
       handleCancel()
@@ -100,16 +111,17 @@ const ModalAdd = ({ setDataFiltered, open, setOpen }) => {
       })
     }
   }
-  const handleDelete = async (id) => {
+
+  const updateSingelProduct = async (updatedProduct, id) => {
     try {
-      await deleteCocktail(id)
-      const tempData = await getAllCocktails()
+      await updateProduct(updatedProduct, id)
+      const tempData = await getInventory()
       setDataFiltered(tempData)
       handleCancel()
       Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Bebida eliminada exitosamente!',
+        title: 'Producto editado exitosamente!',
         showConfirmButton: false,
         timer: 1500
       })
@@ -117,7 +129,71 @@ const ModalAdd = ({ setDataFiltered, open, setOpen }) => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'No se ha podido eliminar la bebida'
+        text: 'No se ha podido editar el producto'
+      })
+    }
+  }
+
+  const handleEdit = async (product) => {
+    const form = document.getElementById('form')
+    const formData = new FormData(form)
+    if (page === 'bebidas') {
+      let updatedCocktail = {
+        name: product.name,
+        price: product.price,
+        image: product.image
+      }
+      const cocktailName = formData.get('productName')
+      const cocktailPrice = parseInt(formData.get('productPrice'))
+      const photo = formData.get('productPhoto')
+      if (photo.name !== '') {
+        updatedCocktail = {
+          ...updatedCocktail,
+          image: await fileUpload(formData.get('productPhoto'))
+        }
+      }
+      updatedCocktail = {
+        ...updateCocktail,
+        name: cocktailName,
+        price: cocktailPrice
+      }
+      updateSingelCocktail(updatedCocktail, product.id)
+    } else {
+      const productName = formData.get('productName')
+      const productPrice = parseInt(formData.get('productPrice'))
+      const productQuantity = parseInt(formData.get('productQuantity'))
+      const updatedProduct = {
+        name: productName,
+        price: productPrice,
+        quantity: productQuantity
+      }
+      updateSingelProduct(updatedProduct, product.id)
+    }
+  }
+  const handleDelete = async (id) => {
+    try {
+      if (page === 'bebidas') {
+        await deleteCocktail(id)
+        const tempData = await getAllCocktails()
+        setDataFiltered(tempData)
+      } else {
+        await deleteProduct(id)
+        const tempData = await getInventory()
+        setDataFiltered(tempData)
+      }
+      handleCancel()
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Producto eliminado exitosamente!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se ha podido eliminar el producto'
       })
     }
   }
@@ -136,10 +212,10 @@ const ModalAdd = ({ setDataFiltered, open, setOpen }) => {
                   <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
                     {
                       open.action === 'add'
-                        ? (<FormAdd />)
+                        ? (<FormAdd page={page} />)
                         : open.action === 'edit'
-                          ? (<FormEdit product={open.product} />)
-                          : (<FormDelete />)
+                          ? (<FormEdit product={open.product} page={page} />)
+                          : (<FormDelete page={page} />)
                     }
 
                   </div>

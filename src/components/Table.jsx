@@ -16,23 +16,25 @@ const Table = ({ dataFiltered, currentPage, setOpenModal }) => {
         <tbody>
           {
             dataFiltered.length !== 0
-              ? (dataFiltered.slice(currentPage.start, currentPage.end).map(cocktail => (
-                <tr key={cocktail.id} className='border-b'>
+              ? (dataFiltered.slice(currentPage.start, currentPage.end).map(product => (
+                <tr key={product.id} className='border-b'>
                   <th scope='row' className='px-4 py-3 flex flex-col justify-center gap-2 font-medium text-gray-900 whitespace-nowrap'>
-                    <Image className='rounded' width={50} height={50} src={cocktail.image} alt={`${cocktail.name} image`} />
-                    {cocktail.name}
+                    {
+                      product.image && <Image className='rounded' width={50} height={50} src={product.image} alt={`${product.name} image`} />
+                    }
+                    {product.name}
                   </th>
-                  <td className='px-4 py-3'>{numberToMoney(cocktail.price)}</td>
+                  <td className='px-4 py-3'>{numberToMoney(product.price)}</td>
                   <td className='px-4 py-3 flex gap-2 items-center justify-end'>
                     <button
-                      onClick={() => { setOpenModal({ action: 'edit', state: true, product: cocktail }) }}
+                      onClick={() => { setOpenModal({ action: 'edit', state: true, product: product }) }}
                       className='bg-primary-100 hover:bg-primary-50 inline-flex items-center p-2 text-sm font-medium text-center text-white rounded-lg focus:outline-none'
                       type='button'
                     >
                       Editar
                     </button>
                     <button
-                      onClick={() => { setOpenModal({ action: 'delete', state: true, product: cocktail.id }) }}
+                      onClick={() => { setOpenModal({ action: 'delete', state: true, product: product.id }) }}
                       className='bg-red-600 hover:bg-red-500 inline-flex items-center p-2 text-sm font-medium text-center text-white rounded-lg focus:outline-none'
                       type='button'
                     >
