@@ -13,7 +13,8 @@ export default function Bebidas({ cocktails }) {
   const [loaded, setLoaded] = useState(false)
   const [openModal, setOpenModal] = useState({ action: 'add', state: false, product: '' })
   const [dataFiltered, setDataFiltered] = useState(cocktails)
-
+  const [searching, setSearching] = useState(false)
+  const [copyData, setCopyData] = useState()
   const [currentPage, setCurrentPage] = useState({
     page: 1,
     start: 0,
@@ -27,10 +28,14 @@ export default function Bebidas({ cocktails }) {
       router.push('/')
     } else setLoaded(true)
   }, [])
+
   const search = async ({ target }) => {
+    if (!searching) {
+      setCopyData(dataFiltered)
+      setSearching(true)
+    }
     if (target.value === '') {
-      const data = await getAllCocktails()
-      setDataFiltered(data)
+      setDataFiltered(copyData)
       return
     }
     const filter = dataFiltered.filter(cocktail => cocktail.name.toLowerCase().includes(target.value.toLowerCase()))
