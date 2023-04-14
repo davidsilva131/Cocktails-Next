@@ -49,6 +49,7 @@ export default function Home() {
                 <input className='bg-transparent caret-transparent outline-none caret-white text-white' type='email' placeholder='Correo' id='email' pattern='.+@gmail\.com' title='Porfavor ingrese el correo que se le proporcionó' />
                 <input className='bg-transparent caret-transparent outline-none caret-white text-white' type='password' placeholder='Contraseña' minLength={6} id='password' />
                 <button className='bg-green-500 rounded p-1' type='' onClick={(e) => { handleLogin(e) }}>Ingresar</button>
+                <span className='text-white'>Usa admin@gmail.com y 123456</span>
               </form>
             </main>)
           : (<Loading />)
