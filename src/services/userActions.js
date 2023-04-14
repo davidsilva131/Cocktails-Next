@@ -1,4 +1,4 @@
-import { auth } from '../services/firebaseConfig'
+import { auth } from '@/services/firebaseConfig'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export const login = async (email, password) => {
