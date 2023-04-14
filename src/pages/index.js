@@ -20,11 +20,13 @@ export default function Home() {
     e.preventDefault()
     const { value: email } = document.getElementById('email')
     const { value: password } = document.getElementById('password')
-    const loged = await login(email, password)
-    if (loged) {
-      localStorage.setItem('user', loged)
-      router.push('/bebidas')
-    } else {
+    try {
+      const loged = await login(email, password)
+      if (loged) {
+        localStorage.setItem('user', loged)
+        router.push('/bebidas')
+      }
+    } catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Datos incorrectos'
