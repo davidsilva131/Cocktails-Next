@@ -1,8 +1,8 @@
 export const fileUpload = async (file) => {
-  const cloudName = 'dndzwn8jk'
+  const cloudName = process.env.NEXT_PUBLIC_CLOUD_NAME
   const uploadPreset = 'Cocktails'
 
-  const urlCloudinary = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
+  const urlCloudinary = process.env.NEXT_PUBLIC_CLOUD_URL
   const formData = new FormData()
   formData.append('file', file)
   formData.append('upload_preset', uploadPreset)
