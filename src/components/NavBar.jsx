@@ -12,11 +12,11 @@ const NavBar = () => {
     {
       text: 'Inventario',
       url: '/inventario'
-    },
-    {
-      text: 'Ventas',
-      url: '/ventas'
     }
+    // {
+    //   text: 'Ventas',
+    //   url: '/ventas'
+    // }
   ]
   const handleLogout = () => {
     localStorage.clear()
