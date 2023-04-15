@@ -1,4 +1,4 @@
-import { database } from '../services/firebaseConfig'
+import { database } from './firebaseConfig'
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
 
 const collectionName = 'cocktails'
