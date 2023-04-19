@@ -7,7 +7,7 @@ const NavBar = () => {
   return (
     <>
       <nav className='bg-black w-full '>
-        <div className='bg-black w-full flex flex-wrap items-center justify-between py-4 px-4 md:px-52'>
+        <div className='bg-black w-full flex flex-wrap items-center justify-between py-4 px-4 md:px-40'>
           <Link
             className='flex items-center justify-start cursor-pointer'
             href='/bebidas'
