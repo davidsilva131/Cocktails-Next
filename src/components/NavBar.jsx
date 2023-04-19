@@ -1,31 +1,28 @@
 import Link from 'next/link'
-import logoutIcon from '@/assets/logout.svg'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { useState } from 'react'
+import HamburgerMenu from './HamburgerMenu'
+import Links from './Links'
 const NavBar = () => {
-  const router = useRouter()
-  const Pages = [
-    {
-      text: 'Bebidas',
-      url: '/bebidas'
-    },
-    {
-      text: 'Inventario',
-      url: '/inventario'
-    }
-    // {
-    //   text: 'Ventas',
-    //   url: '/ventas'
-    // }
-  ]
-  const handleLogout = () => {
-    localStorage.clear()
-    router.push('/')
-  }
+  const [open, setOpen] = useState(true)
   return (
     <>
-      <header>
-        <nav>
+      <nav className='bg-black w-full '>
+        <div className='bg-black w-full flex flex-wrap items-center justify-between py-4 px-4 md:px-52'>
+          <Link
+            className='flex items-center justify-start cursor-pointer'
+            href='/bebidas'
+          >
+            <span className='self-center text-2xl font-semibold whitespace-nowrap text-white uppercase'>
+              Cocktails
+            </span>
+          </Link>
+          <div className='flex md:hidden md:order-2'>
+            <HamburgerMenu open={open} setOpen={setOpen} />
+          </div>
+          <Links open={open} />
+        </div>
+      </nav>
+      {/* <nav>
           <ul className='w-full flex gap-5 justify-center bg-blue-950  p-5 '>
             {
               Pages.map(page => (
@@ -50,8 +47,7 @@ const NavBar = () => {
               />
             </li>
           </ul>
-        </nav>
-      </header>
+        </nav> */}
     </>
   )
 }
