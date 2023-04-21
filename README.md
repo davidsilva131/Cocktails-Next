@@ -3,6 +3,20 @@ This project has been created using NextJS, Firebase and TailwindCSS.
 
 ## Getting Started
 
+Clone the project and install it:
+
+```bash
+git clone https://github.com/davidsilva131/Cocktails-Next.git
+# move to the project folder
+cd Cocktails-Next
+# Install
+npm install
+# or
+yarn install
+#or pnpm
+pnpm install
+```
+
 First, run the development server:
 
 ```bash
