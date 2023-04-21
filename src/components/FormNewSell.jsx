@@ -1,7 +1,7 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 
 const FormNewSell = ({ data }) => {
-  const [shop, setShop] = useState([])
+  // const [shop] = useState([])
 
   const newShop = () => {
     const form = document.getElementById('form')
@@ -18,13 +18,13 @@ const FormNewSell = ({ data }) => {
     console.log(newData)
     // setShop([...shop, newData])
   }
-  const getTotal = () => {
-    let total = 0
-    shop.forEach(element => {
-      total = total + element.price
-    })
-    return total
-  }
+  // const getTotal = () => {
+  //   let total = 0
+  //   shop.forEach(element => {
+  //     total = total + element.price
+  //   })
+  //   return total
+  // }
 
   return (
     <>

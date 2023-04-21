@@ -6,10 +6,9 @@ import { getInventory } from '@/services/inventoryActions'
 import { getAllSellings } from '@/services/sellingsActions'
 import { useState } from 'react'
 
-/* eslint-disable space-before-function-paren */
-export default function Ventas({ sellings, allData }) {
+export default function Ventas ({ sellings, allData }) {
   const [sellingsData, setSellingsData] = useState(sellings)
-  const [data, setData] = useState(allData)
+  const [data] = useState(allData)
   return (
     <>
       <PageLayout title='Ventas' />
@@ -19,7 +18,7 @@ export default function Ventas({ sellings, allData }) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps () {
   const sellings = await getAllSellings()
   const cocktailsData = await getAllCocktails()
   const inventoryData = await getInventory()
