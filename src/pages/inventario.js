@@ -9,10 +9,13 @@ import Loading from '@/components/Loading'
 import TableInventory from '@/components/TableInventory'
 import Pagination from '@/components/Pagination'
 
-/* eslint-disable space-before-function-paren */
-export default function Inventory({ inventory }) {
+export default function Inventory ({ inventory }) {
   const [loaded, setLoaded] = useState(false)
-  const [openModal, setOpenModal] = useState({ action: 'add', state: false, product: '' })
+  const [openModal, setOpenModal] = useState({
+    action: 'add',
+    state: false,
+    product: ''
+  })
   const [dataFiltered, setDataFiltered] = useState(inventory)
   const [currentPage, setCurrentPage] = useState({
     page: 1,
@@ -35,35 +38,55 @@ export default function Inventory({ inventory }) {
       setDataFiltered(copyData)
       return
     }
-    const filter = copyData.filter(cocktail => cocktail.name.toLowerCase().includes(target.value.toLowerCase()))
+    const filter = copyData.filter(cocktail =>
+      cocktail.name.toLowerCase().includes(target.value.toLowerCase())
+    )
     setDataFiltered(filter)
   }
 
   return (
     <>
-      {
-        loaded
-          ? (
-            <>
-              <PageLayout title='Inventario' />
-              <main className='w-full flex flex-col'>
-                <section className='bg-gray-50  p-3 sm:p-5'>
-                  <div className='mx-auto max-w-screen-xl px-4 lg:px-12'>
-                    <SearchAdd search={search} setOpenModal={setOpenModal} openModal={openModal} />
-                    <TableInventory dataFiltered={dataFiltered} currentPage={currentPage} setOpenModal={setOpenModal} />
-                    <Pagination dataFilteredLength={dataFiltered.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
-                  </div>
-                </section>
-                <ModalAdd setDataFiltered={setDataFiltered} open={openModal} setOpen={setOpenModal} page='inventario' />
-              </main>
-            </>)
-          : (<Loading />)
-      }
+      {loaded
+        ? (
+          <>
+            <PageLayout title='Inventario' />
+            <main className='w-full flex flex-col'>
+              <section className='bg-gray-50  p-3 sm:p-5'>
+                <div className='mx-auto max-w-screen-xl px-4 lg:px-12'>
+                  <SearchAdd
+                    search={search}
+                    setOpenModal={setOpenModal}
+                    openModal={openModal}
+                  />
+                  <TableInventory
+                    dataFiltered={dataFiltered}
+                    currentPage={currentPage}
+                    setOpenModal={setOpenModal}
+                  />
+                  <Pagination
+                    dataFilteredLength={dataFiltered.length}
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
+                  />
+                </div>
+              </section>
+              <ModalAdd
+                setDataFiltered={setDataFiltered}
+                open={openModal}
+                setOpen={setOpenModal}
+                page='inventario'
+              />
+            </main>
+          </>
+          )
+        : (
+          <Loading />
+          )}
     </>
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps () {
   const inventory = await getInventory()
   return {
     props: {
