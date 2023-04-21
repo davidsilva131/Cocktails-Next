@@ -11,7 +11,11 @@ import { useEffect, useState } from 'react'
 /* eslint-disable space-before-function-paren */
 export default function Bebidas({ cocktails }) {
   const [loaded, setLoaded] = useState(false)
-  const [openModal, setOpenModal] = useState({ action: 'add', state: false, product: '' })
+  const [openModal, setOpenModal] = useState({
+    action: 'add',
+    state: false,
+    product: ''
+  })
   const [dataFiltered, setDataFiltered] = useState(cocktails)
   const [copyData] = useState([...dataFiltered])
   const [currentPage, setCurrentPage] = useState({
@@ -33,29 +37,47 @@ export default function Bebidas({ cocktails }) {
       setDataFiltered(copyData)
       return
     }
-    const filter = copyData.filter(cocktail => cocktail.name.toLowerCase().includes(target.value.toLowerCase()))
+    const filter = copyData.filter(cocktail =>
+      cocktail.name.toLowerCase().includes(target.value.toLowerCase())
+    )
     setDataFiltered(filter)
   }
   return (
     <>
-      {
-        loaded
-          ? (
-            <>
-              <PageLayout title='Bebidas' />
-              <main className='w-full flex flex-col'>
-                <section className='bg-gray-50  p-3 sm:p-5'>
-                  <div className='mx-auto max-w-screen-xl px-4 lg:px-12'>
-                    <SearchAdd search={search} setOpenModal={setOpenModal} openModal={openModal} />
-                    <Table dataFiltered={dataFiltered} currentPage={currentPage} setOpenModal={setOpenModal} />
-                    <Pagination dataFilteredLength={dataFiltered.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
-                  </div>
-                </section>
-                <ModalAdd setDataFiltered={setDataFiltered} open={openModal} setOpen={setOpenModal} page='bebidas' />
-              </main>
-            </>)
-          : (<Loading />)
-      }
+      {loaded ? (
+        <>
+          <PageLayout title='Bebidas' />
+          <main className='w-full h-full flex flex-col'>
+            <section className='bg-gray-50 h-full p-3 sm:p-5'>
+              <div className='mx-auto max-w-screen-xl px-4 lg:px-12'>
+                <SearchAdd
+                  search={search}
+                  setOpenModal={setOpenModal}
+                  openModal={openModal}
+                />
+                <Table
+                  dataFiltered={dataFiltered}
+                  currentPage={currentPage}
+                  setOpenModal={setOpenModal}
+                />
+                <Pagination
+                  dataFilteredLength={dataFiltered.length}
+                  setCurrentPage={setCurrentPage}
+                  currentPage={currentPage}
+                />
+              </div>
+            </section>
+            <ModalAdd
+              setDataFiltered={setDataFiltered}
+              open={openModal}
+              setOpen={setOpenModal}
+              page='bebidas'
+            />
+          </main>
+        </>
+      ) : (
+        <Loading />
+      )}
     </>
   )
 }
