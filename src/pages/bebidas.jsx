@@ -47,7 +47,7 @@ export default function Bebidas ({ cocktails }) {
         ? (
           <>
             <PageLayout title='Bebidas' />
-            <main className='w-full h-full flex flex-col'>
+            <main className='w-full h-full pt-20 z-0 flex flex-col'>
               <section className='bg-gray-50 h-full p-3 sm:p-5'>
                 <div className='mx-auto max-w-screen-xl px-4 lg:px-12'>
                   <SearchAdd

@@ -50,7 +50,7 @@ export default function Inventory ({ inventory }) {
         ? (
           <>
             <PageLayout title='Inventario' />
-            <main className='w-full flex flex-col'>
+            <main className='w-full flex flex-col pt-20'>
               <section className='bg-gray-50  p-3 sm:p-5'>
                 <div className='mx-auto max-w-screen-xl px-4 lg:px-12'>
                   <SearchAdd
