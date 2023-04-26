@@ -26,7 +26,7 @@ const Links = ({ open }) => {
   ]
   return (
     <div
-      className={`transition-all ease-out duration-500 md:transition-none ${
+      className={`transition-all relative z-10 ease-out duration-500 md:transition-none ${
         open ? 'h-screen' : 'h-0'
       }  items-center w-full md:flex  md:h-14 md:w-auto md:order-1`}
       id='navbar-sticky'

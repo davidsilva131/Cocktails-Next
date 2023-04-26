@@ -3,10 +3,10 @@ import { useState } from 'react'
 import HamburgerMenu from './HamburgerMenu'
 import Links from './Links'
 const NavBar = () => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   return (
     <>
-      <nav className='bg-black w-full '>
+      <nav className='bg-black fixed w-full '>
         <div className='bg-black w-full flex flex-wrap items-center justify-between py-4 px-4 md:px-40'>
           <Link
             className='flex items-center justify-start cursor-pointer'
